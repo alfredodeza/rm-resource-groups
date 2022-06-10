@@ -1,0 +1,21 @@
+
+name: Demo resource groups
+
+#env:
+#  AZURE_WEBAPP_NAME: your-app-name  # set this to the name of your Azure Web App
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  list-groups:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - run: |
+        az group list --query "[?name.contains(@, 'demo')]" | jq '.[] | .name'
