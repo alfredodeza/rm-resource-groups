@@ -12,19 +12,18 @@ jobs:
   list-groups:
     runs-on: ubuntu-latest
     steps:
+    
     - name: Azure login
-    #  uses: azure/login@v1.4.3
-    #  with:
-    #    client-id: ${{ secrets.AZURE_CLIENT_ID }}
-    #    tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-    #    subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - run: which az
-    - run: az --version
     
-    - run: |
+    - name: Get demo resource groups
+      run: |
         az group list --query "[?name.contains(@, 'demo')]" | jq '.[] | .name' > demo-groups.txt
-        
-    - run: cat demo-groups.txt
+
+    - name: Remove demo resource groups    
+      run: |
+        while read -r group; do
+            az group show -n $group;
+        done < demo-groups.txt
