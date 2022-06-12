@@ -25,4 +25,6 @@ jobs:
     - run: az --version
     
     - run: |
-        az group list --query "[?name.contains(@, 'demo')]" | jq '.[] | .name'
+        az group list --query "[?name.contains(@, 'demo')]" | jq '.[] | .name' > demo-groups.txt
+        
+    - run: cat demo-groups.txt
