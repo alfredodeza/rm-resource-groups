@@ -1,8 +1,5 @@
 
-name: Demo resource groups
-
-#env:
-#  AZURE_WEBAPP_NAME: your-app-name  # set this to the name of your Azure Web App
+name: Nuke Demo resource groups
 
 on:
   workflow_dispatch:
@@ -25,5 +22,5 @@ jobs:
     - name: Remove demo resource groups    
       run: |
         while read -r group; do
-            az group show -n $group;
+            az group delete -yn $group;
         done < demo-groups.txt
