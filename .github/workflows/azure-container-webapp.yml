@@ -14,4 +14,8 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Get demo resource groups
+      run: |
+      az group list --query "[?name.contains(@, 'demo')]" | jq -r '.[] | .name'
 
