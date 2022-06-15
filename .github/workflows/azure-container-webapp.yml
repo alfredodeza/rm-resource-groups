@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  list-groups:
+  rm-resource-groups:
     runs-on: ubuntu-latest
     steps:
     
