@@ -1,5 +1,5 @@
 
-name: Nuke Demo resource groups
+name: Remove Demo Resource Groups
 
 on:
   workflow_dispatch:
