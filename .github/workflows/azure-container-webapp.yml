@@ -17,5 +17,11 @@ jobs:
         
     - name: Get demo resource groups
       run: |
-        az group list --query "[?name.contains(@, 'demo')]" | jq -r '.[] | .name'
+        az group list --query "[?name.contains(@, 'demo')]" | jq -r '.[] | .name' > demo-groups.txt
+        
+    - name: Remove demo resource groups
+      run: |
+        while read -r group; do
+            az group delete -yn $group;
+        done < demo-groups.txt
 
